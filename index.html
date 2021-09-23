@@ -3,19 +3,17 @@
     <link rel="stylesheet" type="text/css" href="style.css"/>
 </head>
 <body>
-	<center>
-	<h1>INCRELEMENTAL</h1>
-	<div id="energyDiv">
-		<label>Your </label>
-		<label class="latin"> energia arcana     </label>
-		<label id="energyLabel"> 0ϵ </label>
-	</div>
-		<div id="energyClicker">
-			<button id="Extract " onclick="onCreateEnergy()">
-				<label> Extract </label>
-				<label class="latin">  energia arcana  </label>
-			</button>
-		</div>
-	</center>
+    <center>
+        <h1>INCRELEMENTAL</h1>
+    </center>
+
+        <nav display="inline">
+            <ul>
+                <li><button id="productionBtn" onclick="onProductionClick()">PRODUCTION</button></li>
+                <li><button id="marketBtn" onclick="onMarketClick()">MARKET</button></li>
+            </ul>
+        </nav>
+
+        
 	<script language="javascript" type="text/javascript" src="script.js"></script>
 </body>
