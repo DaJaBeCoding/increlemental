@@ -6,8 +6,12 @@ var lastCookieUpdate = 0;
 console.log(document.cookie);
 
 // load storage vars
-
-
+var cookiePlaytime = 0;
+var cookieGD = null;
+if (document.cookie !== null) {
+    cookieGD = JSON.parse(loadGamedataFromCookie());
+    cookiePlaytime = cookieGD.playtime;
+}
 if (existsStorageVar("gamedata")) {
     var gamedata = JSON.parse(window.sessionStorage.getItem("gamedata"));
 } else {
@@ -20,11 +24,11 @@ if (existsStorageVar("gamedata")) {
         MONEY_UNLOCKED: false
     }
 }
-const exp = new Date();
-exp.setTime(exp.getTime() + 69420);
-document.cookie = "username=dajabe"
-//document.cookie = "gamedata=" + encodeURIComponent(JSON.stringify(gamedata)) + ";expires=" + exp.toUTCString();
-console.log(document.cookie)
+if (cookiePlaytime > gamedata.playtime) {
+    gamedata = cookieGD;
+    console.log("Loaded cookie gamedata! " + JSON.stringify(gamedata));
+}
+
 
 // load storage vars end
 
@@ -35,6 +39,15 @@ const unlocks = {
     DIVITIAE: 0
 }
 
+function loadGamedataFromCookie() {
+    if (document.cookie !== null) {
+        var cookie = document.cookie;
+        cookie = cookie.split(';')[0];
+        cookie = cookie.split('=')[1];
+        alert(cookie);
+        return cookie;
+    }
+}
 
 function existsStorageVar(name) {
     return window.sessionStorage.getItem(name) !== null;
@@ -62,6 +75,13 @@ function update() {
 
 function updateGamedata(now) {
     window.sessionStorage.setItem("gamedata", JSON.stringify(gamedata));
+
+    if (now - lastCookieUpdate > 20000) {
+        lastCookieUpdate = now;
+        const exp = new Date();
+        exp.setTime(exp.getTime() + 69420);
+        document.cookie = "gamedata=" + JSON.stringify(gamedata) + ";expires=" + exp.toUTCString();
+    }
 }
 
 function unlock(unlock) {
