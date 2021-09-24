@@ -8,7 +8,8 @@ console.log(document.cookie);
 // load storage vars
 var cookiePlaytime = 0;
 var cookieGD = null;
-if (document.cookie !== null) {
+var gamedata = null;
+if (document.cookie !== null && document.cookie.length > 0) {
     cookieGD = JSON.parse(loadGamedataFromCookie());
     cookiePlaytime = cookieGD.playtime;
 }
@@ -81,6 +82,7 @@ function updateGamedata(now) {
         const exp = new Date();
         exp.setTime(exp.getTime() + 69420);
         document.cookie = "gamedata=" + JSON.stringify(gamedata) + ";expires=" + exp.toUTCString();
+        console.log("cookie written!");
     }
 }
 
