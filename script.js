@@ -2,21 +2,29 @@
 var lastTime = Date.now();
 var now = lastTime;
 var deltaT = 0;
+var lastCookieUpdate = 0;
+console.log(document.cookie);
 
 // load storage vars
-if (existsStorageVar("energy")) {
-    var energy = parseFloat(window.sessionStorage.getItem("energy"));
-} else {
-    var energy = 0;
-}
 
-if (existsStorageVar("unlocks")) {
-    var unlocksUnlocked = JSON.parse(window.sessionStorage.getItem("unlocks"));
+
+if (existsStorageVar("gamedata")) {
+    var gamedata = JSON.parse(window.sessionStorage.getItem("gamedata"));
 } else {
-    var unlocksUnlocked = {
-        DIVITIAE_UNLOCKED: false
-    } 
+    var gamedata = {
+        energy: 0,
+        money: 0,
+
+        playtime: 0,
+
+        MONEY_UNLOCKED: false
+    }
 }
+const exp = new Date();
+exp.setTime(exp.getTime() + 69420);
+document.cookie = "username=dajabe"
+//document.cookie = "gamedata=" + encodeURIComponent(JSON.stringify(gamedata)) + ";expires=" + exp.toUTCString();
+console.log(document.cookie)
 
 // load storage vars end
 
@@ -33,8 +41,7 @@ function existsStorageVar(name) {
 }
 
 function onCreateEnergy() {
-    energy += 1;
-    window.sessionStorage.setItem("energy", energy);
+    gamedata.energy += 1;
 }
 
 
@@ -42,42 +49,39 @@ function update() {
     now = Date.now();
     deltaT = (now - lastTime) / 1000.0;
     lastTime = now;
+    gamedata.playtime += deltaT;
 
 
 
 
-    document.getElementById("energyLabel").innerHTML = parseInt(energy);
+    document.getElementById("energyLabel").innerHTML = parseInt(gamedata.energy);
     updateUnlocks();
+    updateGamedata(now);
     window.requestAnimationFrame(update);
 }
 
-function onProductionClick() {
-    document.getElementById("productionBtn").innerHTML = "whatever";
-}
-
-function onMarketClick() {
-
+function updateGamedata(now) {
+    window.sessionStorage.setItem("gamedata", JSON.stringify(gamedata));
 }
 
 function unlock(unlock) {
     switch (unlock) {
         case unlocks.DIVITIAE:
-            if (unlocksUnlocked.DIVITIAE_UNLOCKED) {
+            if (gamedata.DIVITIAE_UNLOCKED) {
                 return;
             }
-            unlocksUnlocked.DIVITIAE_UNLOCKED = true;
+            gamedata.DIVITIAE_UNLOCKED = true;
             document.getElementById("unlockMoneyDialog").show();
             break;
     }
-    window.sessionStorage.setItem("unlocks", JSON.stringify(unlocksUnlocked));
 }
 
 function updateUnlocks() {
     //money
-    if (energy >= 10) {
+    if (gamedata.energy >= 10) {
         unlock(unlocks.DIVITIAE);
     }
-    document.getElementById("moneyDiv").hidden = !unlocksUnlocked.DIVITIAE_UNLOCKED;
+    document.getElementById("moneyDiv").hidden = !gamedata.DIVITIAE_UNLOCKED;
     
 }
 
