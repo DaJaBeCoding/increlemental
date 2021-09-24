@@ -55,3 +55,37 @@ a.disabled {
 .latin {
 	font-family: "Mael";
 }
+
+.npcSpeach {
+    background-color: lightgray;
+    border: groove;
+    width: fit-content;
+    heigt: fit-content;
+}
+
+.npcOffer {
+    display: table-column;
+    border:solid;
+    width: fit-content;
+    heigt: fit-content;
+}
+
+.ressourceBar {
+    border: solid;
+    display: inline-block;
+}
+
+.ressourceMeter {
+    margin-right: 30px;
+}
+
+.npcOfferWall {
+    margin-top: 50px;
+    display: inline-flex;
+    border:ridge;
+}
+
+.npcTradeButton {
+    width: 100%;
+    margin-top:20px;
+}

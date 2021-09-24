@@ -1,15 +1,38 @@
 <head>
     <title>Increlemental</title>
     <link rel="stylesheet" type="text/css" href="style.css" />
-</head>
-<body>
     <center>
         <h1>INCRELEMENTAL</h1>
     </center>
     <nav display="inline">
         <ul>
             <li><a id="productionA" href="index.html">PRODUCTION</a></li>
-            <li><a class = "disabled" id="marketA" href="market.html">MARKET</a></li>
+            <li><a class="disabled" id="marketA" href="market.html">MARKET</a></li>
         </ul>
     </nav>
+</head>
+<body>
+    <div class="ressourceBar">
+        <label class="ressourceMeter">
+            Your <label class="latin">energia arcana</label>: <label id="energyLabel"></label> &#949
+        </label>
+        <label class="ressourceMeter">
+            Your <label class="latin">divitiae philosophorum</label>: <label id="moneyLabel"></label> &#948
+        </label>
+    </div>
+    <br />
+    <div class="npcOfferWall">
+        <div class="npcOffer">
+            <div class="npcSpeach">
+                Hey there Alchemist,
+                <br />
+                you got some <label class="latin">energia arcana</label> for me?
+            </div>
+            <button class="npcTradeButton" onclick="onSellEnergy(10)" id="sellEnergy10">
+                Sell: 10 &#949 <br />
+                Reward: 1 &#948
+            </button>
+        </div>
+    </div>
+    <script language="javascript" type="text/javascript" src="marketScript.js"></script>
 </body>

@@ -1,5 +1,4 @@
-﻿
-var lastTime = Date.now();
+﻿var lastTime = Date.now();
 var now = lastTime;
 var deltaT = 0;
 var lastCookieUpdate = 0;
@@ -45,7 +44,6 @@ function loadGamedataFromCookie() {
         var cookie = document.cookie;
         cookie = cookie.split(';')[0];
         cookie = cookie.split('=')[1];
-        alert(cookie);
         return cookie;
     }
 }
@@ -69,6 +67,7 @@ function update() {
 
 
     document.getElementById("energyLabel").innerHTML = parseInt(gamedata.energy);
+    document.getElementById("moneyLabel").innerHTML = parseInt(gamedata.money);
     updateUnlocks();
     updateGamedata(now);
     window.requestAnimationFrame(update);
@@ -77,12 +76,12 @@ function update() {
 function updateGamedata(now) {
     window.sessionStorage.setItem("gamedata", JSON.stringify(gamedata));
 
-    if (now - lastCookieUpdate > 20000) {
+    if (now - lastCookieUpdate > 2000) {
         lastCookieUpdate = now;
         const exp = new Date();
         exp.setTime(exp.getTime() + 69420);
         document.cookie = "gamedata=" + JSON.stringify(gamedata) + ";expires=" + exp.toUTCString();
-        console.log("cookie written!");
+        console.log("cookie written: " + document.cookie);
     }
 }
 
@@ -104,6 +103,7 @@ function updateUnlocks() {
         unlock(unlocks.DIVITIAE);
     }
     document.getElementById("moneyDiv").hidden = !gamedata.DIVITIAE_UNLOCKED;
+    document.getElementById("nav").hidden = !gamedata.DIVITIAE_UNLOCKED;
     
 }
 
