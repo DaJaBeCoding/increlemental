@@ -2,19 +2,39 @@
 var lastTime = Date.now();
 var now = lastTime;
 var deltaT = 0;
-var energy = 0;
+
+// load storage vars
+if (existsStorageVar("energy")) {
+    var energy = parseFloat(window.sessionStorage.getItem("energy"));
+} else {
+    var energy = 0;
+}
+
+if (existsStorageVar("unlocks")) {
+    var unlocksUnlocked = JSON.parse(window.sessionStorage.getItem("unlocks"));
+} else {
+    var unlocksUnlocked = {
+        DIVITIAE_UNLOCKED: false
+    } 
+}
+
+// load storage vars end
+
+
 window.requestAnimationFrame(update);
 
 const unlocks = {
     DIVITIAE: 0
 }
 
-var unlocksUnlocked = {
-    DIVITIAE_UNLOCKED: false
+
+function existsStorageVar(name) {
+    return window.sessionStorage.getItem(name) !== null;
 }
 
 function onCreateEnergy() {
-	energy += 1;
+    energy += 1;
+    window.sessionStorage.setItem("energy", energy);
 }
 
 
@@ -46,9 +66,10 @@ function unlock(unlock) {
                 return;
             }
             unlocksUnlocked.DIVITIAE_UNLOCKED = true;
-            window.alert("You have unlocked DIVITIAE PHILOSOPHORUM! Sell your ENERGIA ARCANA and buy more complex production machines to become a great Alchemist!");
+            document.getElementById("unlockMoneyDialog").show();
             break;
     }
+    window.sessionStorage.setItem("unlocks", JSON.stringify(unlocksUnlocked));
 }
 
 function updateUnlocks() {

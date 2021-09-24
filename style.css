@@ -39,6 +39,15 @@ a:active {
     text-decoration: none;
 }
 
+a.disabled {
+    color: darkgray;
+    background-color: white;
+    text-decoration: none;
+    pointer-events: none;
+    cursor: default;
+}
+
+
 .topMargin {
     margin-top: 50px;
 }

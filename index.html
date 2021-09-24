@@ -1,4 +1,4 @@
-<head>
+﻿<head>
     <title>Increlemental</title>
     <link rel="stylesheet" type="text/css" href="style.css"/>
 </head>
@@ -6,14 +6,45 @@
     <center>
         <h1>INCRELEMENTAL</h1>
     </center>
+    <nav display="inline">
+        <ul>
+            <li><a class="disabled"  id="productionA" href="#">PRODUCTION</a></li>
+            <li><a id="marketA" href="market.html">MARKET</a></li>
+        </ul>
+    </nav>
+    <div id="energyClicker">
+        <button id="Extract " onclick="onCreateEnergy()">
+            <label> Extract </label>
+            <label class="latin">  energia arcana  </label>
+        </button>
+    </div>
+    <div id="energyDiv">
+        <label>Your </label>
+        <label class="latin"> energia arcana</label>
+        <label>:</label>
+        <label id="energyLabel">0</label>
+        <label>Ɛ</label>
+    </div>
+    <div class="topMargin" id="moneyDiv">
+        <label>Your </label>
+        <label class="latin"> divitiae philosophorum </label>
+        <label>:</label>
+        <label id="moneyLabel">0</label>
+        <label>δ</label>
 
-        <nav display="inline">
-            <ul>
-                <li><button id="productionBtn" onclick="onProductionClick()">PRODUCTION</button></li>
-                <li><button id="marketBtn" onclick="onMarketClick()">MARKET</button></li>
-            </ul>
-        </nav>
-
-        
-	<script language="javascript" type="text/javascript" src="script.js"></script>
+    </div>
+    <script language="javascript" type="text/javascript" src="script.js"></script>
 </body>
+<dialog id="unlockMoneyDialog">
+    You have unlocked
+    <label class="latin">DIVITIAE PHILOSOPHORUM</label>!
+    <br>
+    Sell your 
+    <label class="latin">ENERGIA ARCANA</label> 
+    <br>
+    and buy more complex production machines 
+    <br>
+    to become a great Alchemist!
+    <br>
+    <Button onclick="{document.getElementById('unlockMoneyDialog').close();}">Ok</Button>
+</dialog>
