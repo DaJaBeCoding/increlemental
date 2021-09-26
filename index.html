@@ -1,37 +1,43 @@
 ﻿<head>
     <title>Increlemental</title>
     <link rel="stylesheet" type="text/css" href="style.css" />
-    <center>
-        <h1>INCRELEMENTAL</h1>
-    </center>
-    <nav id="nav" display="inline">
-        <ul>
-            <li><a class="disabled" id="productionA" href="#">PRODUCTION</a></li>
-            <li><a id="marketA" href="market.html">MARKET</a></li>
-        </ul>
-    </nav>
+    <h1 style="text-align:center">INCRELEMENTAL</h1>
 </head>
 <body>
-    <div id="energyClicker">
-        <button id="Extract " onclick="onCreateEnergy()">
-            <label> Extract </label>
-            <label class="latin">  energia arcana  </label>
-        </button>
+    <div class="ressourceBar">
+        <label class="ressourceMeter" id="energyMeter">
+            Your <label class="latin">energia arcana</label>: <label id="energyLabel"></label> &#949
+        </label>
+        <label class="ressourceMeter" id="moneyMeter">
+            Your <label class="latin">divitiae philosophorum</label>: <label id="moneyLabel"></label> &#948
+        </label>
     </div>
-    <div id="energyDiv">
-        <label>Your </label>
-        <label class="latin"> energia arcana</label>
-        <label>:</label>
-        <label id="energyLabel">0</label>
-        <label>&#949</label>
+    <nav id="nav" display="inline">
+        <button id="productionTabBtn" onclick="showTab('productionTab')">production</button>
+        <button id="marketTabBtn" onclick="showTab('marketTab')">market</button>
+    </nav>
+    <div id="productionTab" class="tab">
+        <div id="energyClicker">
+            <button id="Extract " onclick="onCreateEnergy()">
+                <label> Extract </label>
+                <label class="latin">  energia arcana  </label>
+            </button>
+        </div>
     </div>
-    <div class="topMargin" id="moneyDiv">
-        <label>Your </label>
-        <label class="latin"> divitiae philosophorum </label>
-        <label>:</label>
-        <label id="moneyLabel">0</label>
-        <label>&#948</label>
-
+    <div id="marketTab" class="tab">
+        <div class="npcOfferWall">
+            <div class="npcOffer">
+                <div class="npcSpeach">
+                    Hey there Alchemist,
+                    <br />
+                    you got some <label class="latin">energia arcana</label> for me?
+                </div>
+                <button class="npcTradeButton" onclick="onSellEnergy(10)" id="sellEnergy10">
+                    Sell: 10 &#949 <br />
+                    Reward: 1 &#948
+                </button>
+            </div>
+        </div>
     </div>
     <script language="javascript" type="text/javascript" src="indexScript.js"></script>
 </body>

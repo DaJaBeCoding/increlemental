@@ -47,6 +47,10 @@ a.disabled {
     cursor: default;
 }
 
+.tab {
+    display: block;
+}
+
 
 .topMargin {
     margin-top: 50px;

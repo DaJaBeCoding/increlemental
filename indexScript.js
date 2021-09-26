@@ -4,18 +4,15 @@ var deltaT = 0;
 var lastCookieUpdate = 0;
 console.log(document.cookie);
 
-// load storage vars
-var cookiePlaytime = 0;
-var cookieGD = null;
+// load gamedata
 var gamedata = null;
+
+showTab("productionTab")
 if (document.cookie !== null && document.cookie.length > 0) {
-    cookieGD = JSON.parse(loadGamedataFromCookie());
-    cookiePlaytime = cookieGD.playtime;
-}
-if (existsStorageVar("gamedata")) {
-    var gamedata = JSON.parse(window.sessionStorage.getItem("gamedata"));
+    gamedata = JSON.parse(loadGamedataFromCookie());
+    console.log("Loaded cookie gamedata! " + JSON.stringify(gamedata));
 } else {
-    var gamedata = {
+    gamedata = {
         energy: 0,
         money: 0,
 
@@ -24,19 +21,36 @@ if (existsStorageVar("gamedata")) {
         MONEY_UNLOCKED: false
     }
 }
-if (cookiePlaytime > gamedata.playtime) {
-    gamedata = cookieGD;
-    console.log("Loaded cookie gamedata! " + JSON.stringify(gamedata));
-}
-
-
-// load storage vars end
+// load gamedata end
 
 
 window.requestAnimationFrame(update);
 
 const unlocks = {
     DIVITIAE: 0
+}
+
+function update() {
+    now = Date.now();
+    deltaT = (now - lastTime) / 1000.0;
+    lastTime = now;
+    gamedata.playtime += deltaT;
+
+
+
+    // production tab
+    document.getElementById("energyLabel").innerHTML = parseInt(gamedata.energy);
+    document.getElementById("moneyLabel").innerHTML = parseInt(gamedata.money);
+
+    //market tab
+    document.getElementById("energyLabel").innerHTML = gamedata.energy;
+    document.getElementById("moneyLabel").innerHTML = gamedata.money;
+
+    //global update
+    updateButtonBuyable();
+    updateUnlocks();
+    updateGamedata(now);
+    window.requestAnimationFrame(update);
 }
 
 function loadGamedataFromCookie() {
@@ -57,20 +71,11 @@ function onCreateEnergy() {
 }
 
 
-function update() {
-    now = Date.now();
-    deltaT = (now - lastTime) / 1000.0;
-    lastTime = now;
-    gamedata.playtime += deltaT;
 
 
-
-
-    document.getElementById("energyLabel").innerHTML = parseInt(gamedata.energy);
-    document.getElementById("moneyLabel").innerHTML = parseInt(gamedata.money);
-    updateUnlocks();
-    updateGamedata(now);
-    window.requestAnimationFrame(update);
+function updateButtonBuyable() {
+    // market buttons
+    document.getElementById("sellEnergy10").disabled = gamedata.energy < 10;
 }
 
 function updateGamedata(now) {
@@ -97,13 +102,35 @@ function unlock(unlock) {
     }
 }
 
+function onSellEnergy(amount) {
+    switch (amount) {
+        case 10:
+            gamedata.energy -= 10;
+            gamedata.money += 1;
+            break;
+    }
+}
+
 function updateUnlocks() {
     //money
     if (gamedata.energy >= 10) {
         unlock(unlocks.DIVITIAE);
     }
-    document.getElementById("moneyDiv").hidden = !gamedata.DIVITIAE_UNLOCKED;
+    document.getElementById("moneyMeter").hidden = !gamedata.DIVITIAE_UNLOCKED;
     document.getElementById("nav").hidden = !gamedata.DIVITIAE_UNLOCKED;
     
+}
+
+function showTab(tabName) {
+    for (let element of document.getElementsByClassName("tab")) {
+        if (element.id === tabName) {
+            element.style.display = "block";
+            document.getElementById(tabName + "Btn").disabled = true;
+        } else {
+            element.style.display = "none";
+            document.getElementById(element.id + "Btn").disabled = false;
+        }
+    }
+   
 }
 
