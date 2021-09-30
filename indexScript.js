@@ -15,9 +15,13 @@ if (document.cookie !== null && document.cookie.length > 0) {
 } else {
     gamedata = {
         energy: 0,
+        energyPerSecond: 0,
         money: 0,
 
         playtime: 0,
+
+        currentEnergyInsert: 10,
+        
 
         GAME_UNLOCKED: false,
 		GENERATOR_UNLOCKED: false,
@@ -44,21 +48,32 @@ function update() {
     lastTime = now;
     gamedata.playtime += deltaT;
 
-
-
-    // production tab
+    // ressources
+    gamedata.energy += gamedata.energyPerSecond * deltaT;
+    // ressource bar
     document.getElementById("energyLabel").innerHTML = parseInt(gamedata.energy);
     document.getElementById("moneyLabel").innerHTML = parseInt(gamedata.money);
+    // production tab
+    
 
-    //market tab
-    document.getElementById("energyLabel").innerHTML = gamedata.energy;
-    document.getElementById("moneyLabel").innerHTML = gamedata.money;
+    updateGenerator();
 
     //global update
     updateButtonBuyable();
     updateUnlocks();
     updateGamedata(now);
     window.requestAnimationFrame(update);
+}
+
+function updateGenerator() {
+    document.getElementById("energyPerSecondLabel").innerHTML = gamedata.energyPerSecond;
+    document.getElementById("insertEnergyAmountLabel").innerHTML = gamedata.currentEnergyInsert;
+}
+
+function onInsertEnergy() {
+    gamedata.energy -= gamedata.currentEnergyInsert;
+    gamedata.energyPerSecond++;
+    gamedata.currentEnergyInsert += 10;
 }
 
 function loadGamedataFromCookie() {
@@ -84,6 +99,7 @@ function onCreateEnergy() {
 function updateButtonBuyable() {
     // market buttons
     document.getElementById("sellEnergy10").disabled = gamedata.energy < 10;
+    document.getElementById("insertEnergyBtn").disabled = gamedata.energy < gamedata.currentEnergyInsert;
 }
 
 function updateGamedata(now) {

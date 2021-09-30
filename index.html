@@ -16,6 +16,7 @@
         <button id="productionTabBtn" onclick="showTab('productionTab')">production</button>
         <button id="marketTabBtn" onclick="showTab('marketTab')">market</button>
     </nav>
+    <br /><br />
     <div id="productionTab" class="tab">
         <div id="energyClicker">
             <button id="Extract " onclick="onCreateEnergy()">
@@ -25,8 +26,13 @@
         </div>
         <br />
         <br />
-        <div id="generatorDiv">
-            <label class="latin">  energia arcana  </label> collector
+        <div id="generatorDiv" class="productionBox">
+            <div class="productionBoxHeading" ">
+                <label class="latin">  energia arcana  </label> collector
+            </div> <br /><br />
+            <button id="insertEnergyBtn" onclick="onInsertEnergy()">Insert <label id="insertEnergyAmountLabel">10</label>&#949</button>
+            <br /><br />
+            Your production per second: <label id="energyPerSecondLabel">0</label> &#949 / s
         </div>
     </div>
     <div id="marketTab" class="tab">

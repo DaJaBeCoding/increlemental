@@ -79,6 +79,19 @@ a.disabled {
     display: inline-block;
 }
 
+.productionBox {
+    border: solid;
+    display: inline-block;
+    width: fit-content;
+    heigt: fit-content;
+}
+
+.productionBoxHeading {
+    border: groove;
+    display: inline-block;
+    width:99%;
+}
+
 .ressourceMeter {
     margin-right: 30px;
 }
