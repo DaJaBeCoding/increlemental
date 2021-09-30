@@ -8,7 +8,7 @@ console.log(document.cookie);
 // load gamedata
 var gamedata = null;
 
-showTab("productionTab")
+showTab(null);
 if (document.cookie !== null && document.cookie.length > 0) {
     gamedata = JSON.parse(loadGamedataFromCookie());
     console.log("Loaded cookie gamedata! " + JSON.stringify(gamedata));
@@ -19,6 +19,7 @@ if (document.cookie !== null && document.cookie.length > 0) {
 
         playtime: 0,
 
+        GAME_UNLOCKED: false,
 		GENERATOR_UNLOCKED: false,
         MONEY_UNLOCKED: false
 		
@@ -28,14 +29,16 @@ if (document.cookie !== null && document.cookie.length > 0) {
 
 
 window.requestAnimationFrame(update);
-
+document.getElementById("startDialog1").show();
 const unlocks = {
-    DIVITIAE: 0,
-	GENERATOR: 1
+    GAME: 0,
+    GENERATOR: 1,
+    DIVITIAE: 2
+	
 }
 
 function update() {
-	document.getElementById("startDialog1").show();
+	
     now = Date.now();
     deltaT = (now - lastTime) / 1000.0;
     lastTime = now;
@@ -97,6 +100,13 @@ function updateGamedata(now) {
 
 function unlock(unlock) {
     switch (unlock) {
+        case unlocks.GAME:
+            if (gamedata.GAME_UNLOCKED) {
+                return;
+            }
+            gamedata.GAME_UNLOCKED = true;
+            showTab("productionTab");
+            break;
 		case unlocks.GENERATOR:
 			if (gamedata.GENERATOR_UNLOCKED) {
                 return;
@@ -124,11 +134,13 @@ function onSellEnergy(amount) {
 }
 
 function updateUnlocks() {
+    // game
+    document.getElementById("energyMeter").hidden = !gamedata.GAME_UNLOCKED;
 	// generator
 	if (gamedata.energy >= 10) {
         unlock(unlocks.GENERATOR);
     }
-	document.getElementById("moneyMeter").hidden = !gamedata.GENERATOR_UNLOCKED;
+    showDiv("generatorDiv", gamedata.GENERATOR_UNLOCKED);
     //money
 	
     if (gamedata.energy >= 1000000) {
@@ -137,6 +149,14 @@ function updateUnlocks() {
     document.getElementById("moneyMeter").hidden = !gamedata.DIVITIAE_UNLOCKED;
     document.getElementById("nav").hidden = !gamedata.DIVITIAE_UNLOCKED;
     
+}
+
+function showDiv(divId, shouldShow) {
+    if (shouldShow) {
+        document.getElementById(divId).style.display = "block";
+    } else {
+        document.getElementById(divId).style.display = "none";
+    }
 }
 
 function showTab(tabName) {

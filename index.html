@@ -4,7 +4,7 @@
     <h1 style="text-align:center">INCRELEMENTAL</h1>
 </head>
 <body>
-    <div class="ressourceBar">
+    <div class="ressourceBar" id="ressourceBar">
         <label class="ressourceMeter" id="energyMeter">
             Your <label class="latin">energia arcana</label>: <label id="energyLabel"></label> &#949
         </label>
@@ -23,11 +23,11 @@
                 <label class="latin">  energia arcana  </label>
             </button>
         </div>
-		<br />
-		<br />
-		<div id="generatorDiv">
-			<label class="latin">  energia arcana  </label> collector
-		</div>
+        <br />
+        <br />
+        <div id="generatorDiv">
+            <label class="latin">  energia arcana  </label> collector
+        </div>
     </div>
     <div id="marketTab" class="tab">
         <div class="npcOfferWall">
@@ -44,40 +44,36 @@
             </div>
         </div>
     </div>
+    <dialog id="startDialog1">
+        Imagine during your daily hunt for budgerigars...
+        <br />
+        <Button onclick="{document.getElementById('startDialog1').close();document.getElementById('startDialog2').show();}">Ok</Button>
+    </dialog>
+    <dialog id="startDialog2">
+        You stumble uppon jo mama! <br />
+        <Button onclick="{document.getElementById('startDialog2').close();unlock(unlocks.GAME);}">Ok</Button>
+    </dialog>
+    <dialog id="unlockGeneratorDialog">
+        <label class="latin">ENERGIA ARCANA</label> is attracted by... <br />
+        high energy density. <br />
+        Press some <label class="latin">ENERGIA ARCANA</label> into <br />
+        the energy collector to produce energy! <br />
+        <Button onclick="{document.getElementById('unlockGeneratorDialog').close();}">Ok</Button>
+    </dialog>
+    <dialog id="unlockMoneyDialog">
+        You have unlocked
+        <label class="latin">DIVITIAE PHILOSOPHORUM</label>!
+        <br>
+        Sell your
+        <label class="latin">ENERGIA ARCANA</label>
+        <br>
+        and buy more complex production machines
+        <br>
+        to become a great Alchemist!
+        <br>
+        <Button onclick="{document.getElementById('unlockMoneyDialog').close();}">Ok</Button>
+    </dialog>
+
     <script language="javascript" type="text/javascript" src="indexScript.js"></script>
-	<dialog id="startDialog1">
-		Imagine seeking budgerigars, wealth and glory by becoming an alchemist of great renown...  <br/>
-		<Button onclick="{document.getElementById('startDialog1').close();document.getElementById('startDialog2').show();}">Ok</Button>
-	</dialog>
-	<dialog id="startDialog2">
-		You can start here by collecting some  <label class="latin">ENERGIA ARCANA</label> 
-		<Button onclick="{document.getElementById('startDialog1').close();document.getElementById('startDialog2').show();}">Ok</Button>
-	</dialog>
-	<dialog id="unlockGeneratorDialog">
-		You have unlocked
-		<label class="latin">DIVITIAE PHILOSOPHORUM</label>!
-		<br>
-		Sell your 
-		<label class="latin">ENERGIA ARCANA</label> 
-		<br>
-		and buy more complex production machines 
-		<br>
-		to become a great Alchemist!
-		<br>
-		<Button onclick="{document.getElementById('unlockMoneyDialog').close();}">Ok</Button>
-	</dialog>
-	<dialog id="unlockMoneyDialog">
-		You have unlocked
-		<label class="latin">DIVITIAE PHILOSOPHORUM</label>!
-		<br>
-		Sell your 
-		<label class="latin">ENERGIA ARCANA</label> 
-		<br>
-		and buy more complex production machines 
-		<br>
-		to become a great Alchemist!
-		<br>
-		<Button onclick="{document.getElementById('unlockMoneyDialog').close();}">Ok</Button>
-	</dialog>
 </body>
 
