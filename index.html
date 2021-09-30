@@ -23,6 +23,11 @@
                 <label class="latin">  energia arcana  </label>
             </button>
         </div>
+		<br />
+		<br />
+		<div id="generatorDiv">
+			<label class="latin">  energia arcana  </label> collector
+		</div>
     </div>
     <div id="marketTab" class="tab">
         <div class="npcOfferWall">
@@ -40,17 +45,39 @@
         </div>
     </div>
     <script language="javascript" type="text/javascript" src="indexScript.js"></script>
+	<dialog id="startDialog1">
+		Imagine seeking budgerigars, wealth and glory by becoming an alchemist of great renown...  <br/>
+		<Button onclick="{document.getElementById('startDialog1').close();document.getElementById('startDialog2').show();}">Ok</Button>
+	</dialog>
+	<dialog id="startDialog2">
+		You can start here by collecting some  <label class="latin">ENERGIA ARCANA</label> 
+		<Button onclick="{document.getElementById('startDialog1').close();document.getElementById('startDialog2').show();}">Ok</Button>
+	</dialog>
+	<dialog id="unlockGeneratorDialog">
+		You have unlocked
+		<label class="latin">DIVITIAE PHILOSOPHORUM</label>!
+		<br>
+		Sell your 
+		<label class="latin">ENERGIA ARCANA</label> 
+		<br>
+		and buy more complex production machines 
+		<br>
+		to become a great Alchemist!
+		<br>
+		<Button onclick="{document.getElementById('unlockMoneyDialog').close();}">Ok</Button>
+	</dialog>
+	<dialog id="unlockMoneyDialog">
+		You have unlocked
+		<label class="latin">DIVITIAE PHILOSOPHORUM</label>!
+		<br>
+		Sell your 
+		<label class="latin">ENERGIA ARCANA</label> 
+		<br>
+		and buy more complex production machines 
+		<br>
+		to become a great Alchemist!
+		<br>
+		<Button onclick="{document.getElementById('unlockMoneyDialog').close();}">Ok</Button>
+	</dialog>
 </body>
-<dialog id="unlockMoneyDialog">
-    You have unlocked
-    <label class="latin">DIVITIAE PHILOSOPHORUM</label>!
-    <br>
-    Sell your 
-    <label class="latin">ENERGIA ARCANA</label> 
-    <br>
-    and buy more complex production machines 
-    <br>
-    to become a great Alchemist!
-    <br>
-    <Button onclick="{document.getElementById('unlockMoneyDialog').close();}">Ok</Button>
-</dialog>
+

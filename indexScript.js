@@ -4,6 +4,7 @@ var deltaT = 0;
 var lastCookieUpdate = 0;
 console.log(document.cookie);
 
+
 // load gamedata
 var gamedata = null;
 
@@ -18,7 +19,9 @@ if (document.cookie !== null && document.cookie.length > 0) {
 
         playtime: 0,
 
+		GENERATOR_UNLOCKED: false,
         MONEY_UNLOCKED: false
+		
     }
 }
 // load gamedata end
@@ -27,10 +30,12 @@ if (document.cookie !== null && document.cookie.length > 0) {
 window.requestAnimationFrame(update);
 
 const unlocks = {
-    DIVITIAE: 0
+    DIVITIAE: 0,
+	GENERATOR: 1
 }
 
 function update() {
+	document.getElementById("startDialog1").show();
     now = Date.now();
     deltaT = (now - lastTime) / 1000.0;
     lastTime = now;
@@ -92,6 +97,13 @@ function updateGamedata(now) {
 
 function unlock(unlock) {
     switch (unlock) {
+		case unlocks.GENERATOR:
+			if (gamedata.GENERATOR_UNLOCKED) {
+                return;
+            }
+            gamedata.GENERATOR_UNLOCKED = true;
+            document.getElementById("unlockGeneratorDialog").show();
+			break;
         case unlocks.DIVITIAE:
             if (gamedata.DIVITIAE_UNLOCKED) {
                 return;
@@ -112,8 +124,14 @@ function onSellEnergy(amount) {
 }
 
 function updateUnlocks() {
+	// generator
+	if (gamedata.energy >= 10) {
+        unlock(unlocks.GENERATOR);
+    }
+	document.getElementById("moneyMeter").hidden = !gamedata.GENERATOR_UNLOCKED;
     //money
-    if (gamedata.energy >= 10) {
+	
+    if (gamedata.energy >= 1000000) {
         unlock(unlocks.DIVITIAE);
     }
     document.getElementById("moneyMeter").hidden = !gamedata.DIVITIAE_UNLOCKED;
